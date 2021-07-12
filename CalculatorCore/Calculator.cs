@@ -32,6 +32,14 @@ namespace CalculatorCore
                             case "-":
                                 result = input1 - input2;
                                 break;
+                            case "*":
+                                result = input1 * input2;
+                                break;
+                            case "/":
+                                result = input1 / input2;
+                                break;
+                            default:
+                                throw new NotImplementedException($"The following operator was used, but incorrect{op}");
                         }
 
 
@@ -45,7 +53,7 @@ namespace CalculatorCore
                 }
                 else
                 {
-                    return new EvaluationResult { Result = result, ErrorMessage="The first entry was incorrect." };
+                    return new EvaluationResult { Result = result, ErrorMessage= "The first entry was incorrect." };
 
                 }
             }

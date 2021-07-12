@@ -24,7 +24,7 @@ namespace FancyCalculator
             {
                 Console.WriteLine("Please enter a math equation with two values and a space between each value, type history to view previous operations, or x to exit.");
                 strInput1 = Console.ReadLine();
-                if (!strInput1.Equals("x", StringComparison.OrdinalIgnoreCase)|| !strInput1.Equals("history", StringComparison.OrdinalIgnoreCase))
+                if (!strInput1.Equals("x", StringComparison.OrdinalIgnoreCase)&& !strInput1.Equals("history", StringComparison.OrdinalIgnoreCase))
                 {
                     var inputArray = strInput1.Trim().Split(" ");
                     if (inputArray.Length < 2 || inputArray.Length > 3)

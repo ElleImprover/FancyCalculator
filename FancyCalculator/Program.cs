@@ -22,16 +22,14 @@ namespace FancyCalculator
             bool done = false;
             while (!done)
             {
-                Console.WriteLine("Please enter a math equation with two values and a space between each value, or x to exit.");
+                Console.WriteLine("Please enter a math equation with two values and a space between each value, type history to view previous operations, or x to exit.");
                 strInput1 = Console.ReadLine();
-                if (!strInput1.Equals("x", StringComparison.OrdinalIgnoreCase))
+                if (!strInput1.Equals("x", StringComparison.OrdinalIgnoreCase)|| !strInput1.Equals("history", StringComparison.OrdinalIgnoreCase))
                 {
                     var inputArray = strInput1.Trim().Split(" ");
                     if (inputArray.Length < 2 || inputArray.Length > 3)
-                    {
-
-                        Console.WriteLine("Your entry was invalid.\nPlease enter a math equation with two numeric values.");
-
+                    { 
+                        Console.WriteLine("Your entry was invalid.\nPlease enter a math equation with two numeric values."); 
                     }
                     if (inputArray.Length == 2)
                     {
@@ -73,6 +71,8 @@ namespace FancyCalculator
                                         Console.WriteLine("The quotient is: {0}", result);
                                         break;
                                 }
+                                var histString = strInput1 + " = " + result;
+                                historyList.Add(histString);
                             }
                         }
                     }
@@ -105,6 +105,9 @@ namespace FancyCalculator
                                     Console.WriteLine("The quotient is: {0}", result);
                                     break;
                             }
+                            var histString = strInput1 + " = " + result;
+                            historyList.Add(histString);
+
                         }
                     }
 
@@ -114,7 +117,22 @@ namespace FancyCalculator
 
                         }
                 }
-                else
+                else if (strInput1.Equals("history", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (historyList.Count > 0)
+                    {
+                        foreach (var x in historyList) {
+                            Console.WriteLine(x);
+
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("There's no history to report.");
+
+                    }
+                }
+                else if (strInput1.Equals("x", StringComparison.OrdinalIgnoreCase))
                 {
                     done = true;
                 }

@@ -10,7 +10,7 @@ namespace TestableCalculatorRunner
             var calculator = new Calculator();
 
             Console.WriteLine("Please enter a numeric expression to add");
-            Console.WriteLine(calculator.Evaluate(Console.ReadLine()));
+            Console.WriteLine(calculator.Evaluate(Console.ReadLine()).Result);
          }
     }
 }

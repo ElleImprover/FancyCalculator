@@ -11,8 +11,7 @@ namespace CalculatorCore
 
         public EvaluationResult Evaluate(string input)
         {
-            Decimal input1 = Decimal.Zero;
-
+            Decimal input1 = Decimal.Zero; 
             Decimal input2 = Decimal.Zero;
             Decimal result = Decimal.Zero;
 
@@ -25,19 +24,28 @@ namespace CalculatorCore
                     success = Decimal.TryParse(inpArray[2], out input2);
                     if (success)
                     {
-                        result = input1 + input2;
+                        var op = inpArray[1];
+                        switch (op) {
+                            case "+":
+                            result = input1 + input2;
+                                break;
+                            case "-":
+                                result = input1 - input2;
+                                break;
+                        }
+
 
                     }
                     else
                     {
-                        return new EvaluationResult { Result = result, ErrorMessage = "" };
+                        return new EvaluationResult { Result = result, ErrorMessage = "The second entry was incorrect." };
 
                     }
 
                 }
                 else
                 {
-                    return new EvaluationResult { Result = result, ErrorMessage="" };
+                    return new EvaluationResult { Result = result, ErrorMessage="The first entry was incorrect." };
 
                 }
             }

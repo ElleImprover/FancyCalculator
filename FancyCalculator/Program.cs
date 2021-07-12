@@ -104,7 +104,9 @@ namespace FancyCalculator
                                     result /= input2;
                                     Console.WriteLine("The quotient is: {0}", result);
                                     break;
+
                             }
+
                             var histString = strInput1 + " = " + result;
                             historyList.Add(histString);
 

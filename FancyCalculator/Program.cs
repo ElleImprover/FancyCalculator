@@ -10,8 +10,13 @@ namespace FancyCalculator
             Input input = new Input();
             decimal input1 = Decimal.Zero;
             decimal input2 = Decimal.Zero;
+            decimal result = Decimal.Zero;
+
             string strInput1 = String.Empty;
-            List<string> opList=new List<string>{ "+","-","*","/"};
+
+            List<string> opList = new List<string> { "+", "-", "*", "/" };
+            List<string> historyList = new List<string>();
+
             bool success = false;
 
             bool done = false;
@@ -21,20 +26,23 @@ namespace FancyCalculator
                 strInput1 = Console.ReadLine();
                 if (!strInput1.Equals("x", StringComparison.OrdinalIgnoreCase))
                 {
-                   var inputArray= strInput1.Trim().Split(" ");
-                    if (inputArray.Length != 3)
+                    var inputArray = strInput1.Trim().Split(" ");
+                    if (inputArray.Length < 2 || inputArray.Length > 3)
                     {
-                    
-                     Console.WriteLine("Your entry was invalid.\nPlease enter a math equation with two numeric values.");
 
+                        Console.WriteLine("Your entry was invalid.\nPlease enter a math equation with two numeric values.");
 
                     }
-                    if (!opList.Contains(inputArray[1]))
+                    if (inputArray.Length == 2)
                     {
-                        Console.WriteLine("Your entry was invalid.\nPlease enter a math equation with '+','-','*','/'.");
-
+                        if (!opList.Contains(inputArray[0]))
+                        {
+                            Console.WriteLine("Your entry was invalid.\nPlease enter a math equation with '+','-','*','/'.");
+                        }
                     }
-                    else if(inputArray.Length == 3 || opList.Contains(inputArray[1])) {
+
+                    if (inputArray.Length == 3 && opList.Contains(inputArray[1]))
+                    {
                         success = Decimal.TryParse(inputArray[0], out input1);
                         if (success)
                         {
@@ -43,40 +51,75 @@ namespace FancyCalculator
                             {
                                 string op = inputArray[1];
                                 switch (op)
-                                { 
-                                case "+": 
-                                    Console.WriteLine("The sum is: {0}", input1 + input2);
-                                    break;
+                                {
+                                    case "+":
+                                        result = input1 + input2;
+                                        Console.WriteLine("The sum is: {0}", result);
+                                        break;
 
-                                 case "-": 
-                                    Console.WriteLine("The result is: {0}", input1 - input2);
-                                     break;
+                                    case "-":
+                                        result = input1 - input2;
 
-                                 case "*": 
-                                     Console.WriteLine("The product is: {0}", input1 * input2);
-                                     break;
+                                        Console.WriteLine("The result is: {0}", result);
+                                        break;
 
-                                 case "/":
-                                     Console.WriteLine("The quotient is: {0}", input1 / input2);
-                                     break;
-                                } 
+                                    case "*":
+                                        result = input1 * input2;
+                                        Console.WriteLine("The product is: {0}", result);
+                                        break;
+
+                                    case "/":
+                                        result = input1 / input2;
+                                        Console.WriteLine("The quotient is: {0}", result);
+                                        break;
+                                }
                             }
                         }
-                        if (!success)
+                    }
+                    else if (inputArray.Length == 2 && opList.Contains(inputArray[0]))
+                    {
+
+                        success = Decimal.TryParse(inputArray[1], out input2);
+                        if (success)
                         {
-                        Console.WriteLine("Your entry was invalid.\nPlease enter a math equation with two numeric values.");
+                            string op = inputArray[0];
+                            switch (op)
+                            {
+                                case "+":
+                                    result += input2;
+                                    Console.WriteLine("The sum is: {0}", result);
+                                    break;
 
+                                case "-":
+                                    result -= input2;
+                                    Console.WriteLine("The result is: {0}", result);
+                                    break;
+
+                                case "*":
+                                    result *= input2;
+                                    Console.WriteLine("The product is: {0}", result);
+                                    break;
+
+                                case "/":
+                                    result /= input2;
+                                    Console.WriteLine("The quotient is: {0}", result);
+                                    break;
+                            }
                         }
-
                     }
 
+                        if (!success)
+                        {
+                            Console.WriteLine("Your entry was invalid.\nPlease enter a math equation with two numeric values.");
+
+                        }
                 }
                 else
                 {
                     done = true;
                 }
-            }
 
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FancyCalculator;
 namespace FancyCalculator
 {
@@ -7,44 +8,68 @@ namespace FancyCalculator
         static void Main(string[] args)
         {
             Input input = new Input();
-            decimal strInput1 = Decimal.Zero;
-            decimal strInput2 = Decimal.Zero;
-            string input1 = String.Empty;
-            string input2 = String.Empty;
+            decimal input1 = Decimal.Zero;
+            decimal input2 = Decimal.Zero;
+            string strInput1 = String.Empty;
+            List<string> opList=new List<string>{ "+","-","*","/"};
+            bool success = false;
+
             bool done = false;
             while (!done)
             {
-                Console.WriteLine("Please enter two numeric values.");
-                Console.WriteLine("Please enter the first number or x to exit.");
-                input1 = Console.ReadLine();
-                if (!input1.Equals("x", StringComparison.OrdinalIgnoreCase))
+                Console.WriteLine("Please enter a math equation with two values and a space between each value, or x to exit.");
+                strInput1 = Console.ReadLine();
+                if (!strInput1.Equals("x", StringComparison.OrdinalIgnoreCase))
                 {
-                    bool success = Decimal.TryParse(input1, out strInput1);
-                    if (success)
+                   var inputArray= strInput1.Trim().Split(" ");
+                    if (inputArray.Length != 3)
                     {
-                        input.Input1 = strInput1;
-                        Console.WriteLine("Please enter the second number or x to exit.");
-                        input2 = Console.ReadLine();
-                        if (!input2.Equals("x", StringComparison.OrdinalIgnoreCase))
+                    
+                     Console.WriteLine("Your entry was invalid.\nPlease enter a math equation with two numeric values.");
+
+
+                    }
+                    if (!opList.Contains(inputArray[1]))
+                    {
+                        Console.WriteLine("Your entry was invalid.\nPlease enter a math equation with '+','-','*','/'.");
+
+                    }
+                    else if(inputArray.Length == 3 || opList.Contains(inputArray[1])) {
+                        success = Decimal.TryParse(inputArray[0], out input1);
+                        if (success)
                         {
-                            success = Decimal.TryParse(input2, out strInput2);
+                            success = Decimal.TryParse(inputArray[2], out input2);
                             if (success)
                             {
-                                input.Input2 = strInput2;
-                                Console.WriteLine("The sum is:{0}", input.Input1 + input.Input2);
+                                string op = inputArray[1];
+                                switch (op)
+                                { 
+                                case "+": 
+                                    Console.WriteLine("The sum is: {0}", input1 + input2);
+                                    break;
 
+                                 case "-": 
+                                    Console.WriteLine("The result is: {0}", input1 - input2);
+                                     break;
+
+                                 case "*": 
+                                     Console.WriteLine("The product is: {0}", input1 * input2);
+                                     break;
+
+                                 case "/":
+                                     Console.WriteLine("The quotient is: {0}", input1 / input2);
+                                     break;
+                                } 
                             }
                         }
-                        else
+                        if (!success)
                         {
-                            done = true;
+                        Console.WriteLine("Your entry was invalid.\nPlease enter a math equation with two numeric values.");
+
                         }
-                    }
-                    if (!success)
-                    {
-                        Console.WriteLine("Your entry was invalid.\nPlease re-try.");
 
                     }
+
                 }
                 else
                 {

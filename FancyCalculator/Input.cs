@@ -8,8 +8,9 @@ namespace FancyCalculator
 {
    public class Input
     {
-        public decimal Input1 { get; set; }
+     public decimal Input1 { get; set; }
      public   decimal Input2 { get; set; }
+     public string Operator { get; set; }
 
     }
 }

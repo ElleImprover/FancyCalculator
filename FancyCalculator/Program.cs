@@ -71,9 +71,12 @@ namespace FancyCalculator
                                         Console.WriteLine("The quotient is: {0}", result);
                                         break;
                                 }
-                                var formatedResult = String.Format("{0,10}", "= " + result);
-                                var histString = $"{strInput1} {formatedResult}";//ED - use the string formating here and concatenate them.
-                                
+                                var histStringOG = $"{strInput1} ";//ED - use the string formating here and concatenate them.
+                                var oGLength = histStringOG.Length;
+                                var length = oGLength - 20;
+                                var formatedResult = String.Format("{0," + length + "}", "= " + result);
+                                var histString = $"{strInput1} {formatedResult}";
+
                                 historyList.Add(histString);
                             }
                         }
@@ -108,8 +111,12 @@ namespace FancyCalculator
                                     break;
 
                             }
-                            var formatedResult = String.Format("{0,10}", "= "+result);
-                            var histString = $"_{ogResult}_ {strInput1} {formatedResult}";//ED - use the string formating here and concatenate them.
+
+                            var histStringOG = $"_{ogResult}_ {strInput1} ";//ED - use the string formating here and concatenate them.
+                            var oGLength = histStringOG.Length;
+                            var length = oGLength-20;
+                            var formatedResult = String.Format("{0," + length + "}", "= " + result);
+                            var histString = $"_{ogResult}_ {strInput1} {formatedResult}";
                             historyList.Add(histString); 
                         }
                     }

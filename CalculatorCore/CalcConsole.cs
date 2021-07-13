@@ -10,27 +10,30 @@ namespace CalculatorCore
     {
         public void RunCalculator()
         {
-
+            decimal decResult = 0m;
             var calculator = new Calculator();
             bool done = false;
-
-            Console.WriteLine("Please enter a numeric expression with two numbers or type x to exit.");
+            while (!done) 
+            {
+            Console.WriteLine("Please enter a numeric expression or type x to exit.");
             var input = Console.ReadLine();
-            if (input.Contains("x"))
-            {
-                done = true;
-            }
-            while (!done)
-            {
-                var result = calculator.Evaluate(input);
-                if (!String.IsNullOrWhiteSpace(result.ErrorMessage))
+                if (input.Contains("x"))
                 {
-                    Console.ResetColor();
-                    Console.WriteLine($"\u001b[31m{ result.ErrorMessage}\u001b[0m");
+                    done = true;
                 }
                 else
                 {
-                    Console.WriteLine(result.Result);
+                    var result = calculator.Evaluate(input, decResult);
+                    decResult = result.Result;
+                    if (!String.IsNullOrWhiteSpace(result.ErrorMessage))
+                    {
+                        Console.ResetColor();
+                        Console.WriteLine($"\u001b[31m{ result.ErrorMessage}\u001b[0m");
+                    }
+                    else
+                    {
+                        Console.WriteLine(result.Result);
+                    }
                 }
             }
 

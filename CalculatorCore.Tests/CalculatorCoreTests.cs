@@ -58,13 +58,19 @@ namespace CalculatorCore.Tests
         public void ValidateOperator()
         {
             EvaluationResult result = calc.Evaluate("8 plus z");
-            Assert.AreEqual("The operator is incorrect.", result.ErrorMessage);
+            Assert.AreEqual("The operator was incorrect.", result.ErrorMessage);
         }
         [TestMethod]
         public void IncorrectNumberOperators()
         {
             EvaluationResult result = calc.Evaluate("8 + = z");
             Assert.AreEqual("There are an incorrect number of entries.", result.ErrorMessage);
+        }
+        [TestMethod]
+        public void ValidateSingularInputWorks()
+        {
+            EvaluationResult result = calc.Evaluate("+ 9");
+            Assert.AreEqual(9, result.Result);
         }
         public void ValidateConsoleExit()
         {

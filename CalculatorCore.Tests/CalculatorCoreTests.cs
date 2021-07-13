@@ -60,6 +60,17 @@ namespace CalculatorCore.Tests
             EvaluationResult result = calc.Evaluate("8 plus z");
             Assert.AreEqual("The operator is incorrect.", result.ErrorMessage);
         }
-
+        [TestMethod]
+        public void IncorrectNumberOperators()
+        {
+            EvaluationResult result = calc.Evaluate("8 + = z");
+            Assert.AreEqual("There are an incorrect number of entries.", result.ErrorMessage);
+        }
+        public void ValidateConsoleExit()
+        {
+            CalcConsole calc = new();
+            //calc.RunCalculator();
+            //Assert.AreEqual("The operator is incorrect.", result.ErrorMessage);
+        }
     }
 }

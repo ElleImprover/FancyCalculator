@@ -24,7 +24,7 @@ namespace FancyCalculator
             {
                 Console.WriteLine("Please enter a math equation with two values and a space between each value, type history to view previous operations, or x to exit.");
                 strInput1 = Console.ReadLine();
-                if (!strInput1.Equals("x", StringComparison.OrdinalIgnoreCase)&& !strInput1.Equals("history", StringComparison.OrdinalIgnoreCase))
+                if (!strInput1.Equals("x", StringComparison.OrdinalIgnoreCase)&& !strInput1.Contains("history", StringComparison.OrdinalIgnoreCase))
                 {
                     var inputArray = strInput1.Trim().Split(" ");
                     if (inputArray.Length < 2 || inputArray.Length > 3)
@@ -71,20 +71,22 @@ namespace FancyCalculator
                                         Console.WriteLine("The quotient is: {0}", result);
                                         break;
                                 }
-                                var histString = strInput1 + " = " + result;
+                                var formatedResult = String.Format("{0,10}", "= " + result);
+                                var histString = $"{strInput1} {formatedResult}";//ED - use the string formating here and concatenate them.
+                                
                                 historyList.Add(histString);
                             }
                         }
                     }
                     else if (inputArray.Length == 2 && opList.Contains(inputArray[0]))
                     {
-
+                        decimal ogResult;
                         success = Decimal.TryParse(inputArray[1], out input2);
                         if (success)
                         {
                             string op = inputArray[0];
-                            switch (op)
-                            {
+                            ogResult = result;
+                            switch (op)  {
                                 case "+":
                                     result += input2;
                                     Console.WriteLine("The sum is: {0}", result);
@@ -106,10 +108,9 @@ namespace FancyCalculator
                                     break;
 
                             }
-
-                            var histString = strInput1 + " = " + result;
-                            historyList.Add(histString);
-
+                            var formatedResult = String.Format("{0,10}", "= "+result);
+                            var histString = $"_{ogResult}_ {strInput1} {formatedResult}";//ED - use the string formating here and concatenate them.
+                            historyList.Add(histString); 
                         }
                     }
 
@@ -119,14 +120,26 @@ namespace FancyCalculator
 
                         }
                 }
-                else if (strInput1.Equals("history", StringComparison.OrdinalIgnoreCase))
+                else  if (strInput1.Contains("history", StringComparison.OrdinalIgnoreCase))
                 {
+                    var getOpArray = strInput1.Split(" ");
+                    string oper;
+
                     if (historyList.Count > 0)
                     {
+                        if (getOpArray.Length > 1)
+                        {
+                            oper = getOpArray[1];
+                            historyList = historyList.FindAll(x => x.Contains(" "+oper+" "));
+                        }
+
+                        Console.WriteLine();
+
                         foreach (var x in historyList) {
                             Console.WriteLine(x);
 
                         }
+                        Console.ReadLine();
                     }
                     else
                     {

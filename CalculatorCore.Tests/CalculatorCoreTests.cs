@@ -54,5 +54,12 @@ namespace CalculatorCore.Tests
             Assert.AreEqual(5m, result.Result);
         }
 
+        [TestMethod]
+        public void ValidateOperator()
+        {
+            EvaluationResult result = calc.Evaluate("8 plus z");
+            Assert.AreEqual("The operator is incorrect.", result.ErrorMessage);
+        }
+
     }
 }

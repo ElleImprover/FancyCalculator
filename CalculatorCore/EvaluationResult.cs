@@ -10,6 +10,7 @@ namespace CalculatorCore
     {
         public decimal Result { get; set; }
         public string ErrorMessage { get; set; }
+        public List<String> History { get; set; }
 
     }
 }

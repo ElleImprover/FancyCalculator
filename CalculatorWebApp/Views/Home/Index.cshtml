@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Calculator Web App</h1><br /><br /><br />
+    <form method="post">
+        <label>
+            Please input a numeric expression with spaces in between each value:
+        </label><br />
+
+        <input name="input" value="@ViewBag.Result" /><br />
+
+        <label>
+
+        </label><br />
+
+        <button type="submit">
+            <br />
+            Submit
+        </button>  
+        @*<button type="submit" action="" value="history">
+            View History
+        </button>*@
+    </form>
+</div>
+<section class="text-center">
+    @if (!String.IsNullOrEmpty(ViewBag.Result))
+    {
+        <br /> <label>
+            Here's the output:<br />
+            @ViewBag.Result
+        </label><br />
+    }
+     @else if(ViewBag.History != null && String.IsNullOrEmpty(ViewBag.Result))
+
+    {
+    @if (ViewBag.History.Count > 0)
+    {
+        <h6>History:</h6>
+        <ul style="list-style-type:none; ">
+            @foreach (var x in ViewBag.History)
+            {
+                <li>@x</li>
+            }
+        </ul>
+    }
+    }
+
+</section>

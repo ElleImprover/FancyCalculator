@@ -8,25 +8,23 @@ namespace CalculatorCore
 {
    public class CalcConsole
     {
-        public void RunCalculator()
-        {
+        public void RunCalculator()  {
+
             decimal decResult = 0m;
             var calculator = new Calculator();
             bool done = false;
+
             while (!done) 
             {
             Console.WriteLine("Please enter a numeric expression or type x to exit.");
             var input = Console.ReadLine();
-                if (input.Contains("x"))
-                {
+                if (input.Contains("x")) {
                     done = true;
                 }
-                else
-                {
-                    var result = calculator.Evaluate(input, decResult);
+                else {
+                    var result = calculator.Evaluate(input,default ,decResult);
                     decResult = result.Result;
-                    if (!String.IsNullOrWhiteSpace(result.ErrorMessage))
-                    {
+                    if (!String.IsNullOrWhiteSpace(result.ErrorMessage)) {
                         Console.ResetColor();
                         Console.WriteLine($"\u001b[31m{ result.ErrorMessage}\u001b[0m");
                     }

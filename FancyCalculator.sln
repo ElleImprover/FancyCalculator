@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31313.79
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FancyCalculator", "FancyCalculator\FancyCalculator.csproj", "{E3A4687D-1B93-4CC0-B447-0E0ADD39E33D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FancyCalculator", "FancyCalculator\FancyCalculator.csproj", "{E3A4687D-1B93-4CC0-B447-0E0ADD39E33D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorCore", "CalculatorCore\CalculatorCore.csproj", "{549B8795-4CB2-439E-8450-2A72348A0085}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculatorCore", "CalculatorCore\CalculatorCore.csproj", "{549B8795-4CB2-439E-8450-2A72348A0085}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestableCalculatorRunner", "TestableCalculatorRunner\TestableCalculatorRunner.csproj", "{8A9B185E-829E-431B-A576-059043B6F224}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestableCalculatorRunner", "TestableCalculatorRunner\TestableCalculatorRunner.csproj", "{8A9B185E-829E-431B-A576-059043B6F224}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorCore.Tests", "CalculatorCore.Tests\CalculatorCore.Tests.csproj", "{214E42B1-7751-4354-B804-692FD51D5DC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculatorCore.Tests", "CalculatorCore.Tests\CalculatorCore.Tests.csproj", "{214E42B1-7751-4354-B804-692FD51D5DC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorWebApp", "CalculatorWebApp\CalculatorWebApp.csproj", "{03FCEA99-DD6C-4AB9-B168-33B863BED957}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{214E42B1-7751-4354-B804-692FD51D5DC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{214E42B1-7751-4354-B804-692FD51D5DC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{214E42B1-7751-4354-B804-692FD51D5DC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03FCEA99-DD6C-4AB9-B168-33B863BED957}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03FCEA99-DD6C-4AB9-B168-33B863BED957}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03FCEA99-DD6C-4AB9-B168-33B863BED957}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03FCEA99-DD6C-4AB9-B168-33B863BED957}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

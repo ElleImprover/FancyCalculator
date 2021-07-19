@@ -23,10 +23,11 @@ namespace FancyCalculator
             while (!done)
             {
                 Console.WriteLine("Please enter a math equation with two values and a space between each value, type history to view previous operations, or x to exit.");
-                strInput1 = Console.ReadLine();
+                strInput1 = Console.ReadLine().Trim();
                 if (!strInput1.Equals("x", StringComparison.OrdinalIgnoreCase)&& !strInput1.Contains("history", StringComparison.OrdinalIgnoreCase))
                 {
                     var inputArray = strInput1.Trim().Split(" ");
+
                     if (inputArray.Length < 2 || inputArray.Length > 3)
                     { 
                         Console.WriteLine("Your entry was invalid.\nPlease enter a math equation with two numeric values."); 
@@ -71,15 +72,15 @@ namespace FancyCalculator
                                         Console.WriteLine("The quotient is: {0}", result);
                                         break;
                                 }
-                                var histStringOG = $"{strInput1} ";
-                                var oGLength = histStringOG.Length;
-                                var length = oGLength - 20;
-                                var inpLength = result.ToString().Length;
-                                length = 20 - oGLength + inpLength;
-                                var formatedResult = String.Format("{0," + length + "}", "= " + result);
-                                var histString = $"{strInput1} {formatedResult}";
+                                //var histStringOG = $"{strInput1} ";
+                                //var oGLength = histStringOG.Length;
+                                //var length = oGLength - 20;
+                                //var inpLength = result.ToString().Length;
+                                //length = 20 - oGLength + inpLength;
+                                //var formatedResult = String.Format("{0," + length + "}", "= " + result);
+                                //var histString = $"{strInput1} {formatedResult}";
 
-                                historyList.Add(histString);
+                                historyList.Add(FormatForConsole1(result, strInput1));
                             }
                         }
                     }
@@ -114,14 +115,14 @@ namespace FancyCalculator
 
                             }
 
-                            var histStringOG = $"_{ogResult}_ {strInput1} ";//ED - use the string formating here and concatenate them.
-                            var oGLength = histStringOG.Length;
-                            var length = oGLength-20;
-                            var inpLength = result.ToString().Length;
-                            length = 20 - oGLength+inpLength;
-                            var formatedResult = String.Format("{0," + length + "}", "= " + result);
-                            var histString = $"_{ogResult}_ {strInput1} {formatedResult}";
-                            historyList.Add(histString); 
+                            //var histStringOG = $"_{ogResult}_ {strInput1} ";//ED - use the string formating here and concatenate them.
+                            //var oGLength = histStringOG.Length;
+                            //var length = oGLength-20;
+                            //var inpLength = result.ToString().Length;
+                            //length = 20 - oGLength+inpLength;
+                            //var formatedResult = String.Format("{0," + length + "}", "= " + result);
+                            //var histString = $"_{ogResult}_ {strInput1} {formatedResult}";
+                            historyList.Add(FormatForConsole2(ogResult, strInput1)); 
                         }
                     }
 
@@ -163,6 +164,27 @@ namespace FancyCalculator
                 }
 
             }
+        }
+       public static string FormatForConsole1(decimal result, string input)
+        {
+            var histStringOG = $"{input} ";
+            var oGLength = histStringOG.Length;
+            var length = oGLength - 20;
+            var inpLength = result.ToString().Length;
+            length = 20 - oGLength + inpLength;
+            var formatedResult = String.Format("{0," + length + "}", "= " + result);
+            return $"{input} {formatedResult}";
+        }
+
+        public static string FormatForConsole2(decimal result, string input)
+        {
+            var histStringOG = $"_{result}_ {input} ";//ED - use the string formating here and concatenate them.
+            var oGLength = histStringOG.Length;
+            var length = oGLength - 20;
+            var inpLength = result.ToString().Length;
+            length = 20 - oGLength + inpLength;
+            var formatedResult = String.Format("{0," + length + "}", "= " + result);
+            return $"_{result}_ {input} {formatedResult}";
         }
     }
 }

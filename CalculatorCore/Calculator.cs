@@ -9,46 +9,107 @@ namespace CalculatorCore
     public class Calculator
     {
         private const string _VALID_OPERATORS = "/*-+";
+        public List<string> HistoryList { get; set; }
 
-        public EvaluationResult Evaluate(string input, decimal decResult=0m)
+        public Calculator()
+        {
+            HistoryList = new();
+        }
+
+
+        public EvaluationResult Evaluate(string input, List<string> curHistList=default, decimal decResult = 0m)
         {
             Decimal input1 = Decimal.Zero;
             Decimal input2 = Decimal.Zero;
             Decimal result = decResult;
+            if (curHistList != default)
+            {
+                HistoryList = curHistList;
+            }
 
             bool done = false;
 
-            var inpArray = input.Split(" ");
-            if (inpArray.Length >= 2 && inpArray.Length < 4)
+            if (!input.Contains("history", StringComparison.CurrentCultureIgnoreCase))
             {
-                if (inpArray.Length == 3)
+                var inpArray = input.Split(" ");
+                if (inpArray.Length >= 2 && inpArray.Length < 4)
                 {
-                    if (_VALID_OPERATORS.Contains(inpArray[1]))
+                    if (inpArray.Length == 3)
                     {
-                        bool success = Decimal.TryParse(inpArray[0], out input1);
-                        if (success)
+                        if (_VALID_OPERATORS.Contains(inpArray[1]))
                         {
-                            success = Decimal.TryParse(inpArray[2], out input2);
+                            bool success = Decimal.TryParse(inpArray[0], out input1);
                             if (success)
                             {
-                                var op = inpArray[1];
+                                success = Decimal.TryParse(inpArray[2], out input2);
+                                if (success)
+                                {
+                                    var op = inpArray[1];
+                                    switch (op)
+                                    {
+                                        case "+":
+                                            result = input1 + input2;
+                                            break;
+                                        case "-":
+                                            result = input1 - input2;
+                                            break;
+                                        case "*":
+                                            result = input1 * input2;
+                                            break;
+                                        case "/":
+                                            result = input1 / input2;
+                                            break;
+                                        default:
+                                            throw new NotImplementedException($"The following operator was used, but incorrect{op}");
+                                    }
+                                    HistoryList.Add(FormatTwoInputs(result, input));
+                                }
+                                else
+                                {
+                                    return new EvaluationResult { Result = result, ErrorMessage = "The second entry was incorrect." };
+
+                                }
+
+                            }
+                            else
+                            {
+                                return new EvaluationResult { Result = result, ErrorMessage = "The first entry was incorrect." };
+
+                            }
+                        }
+                        else
+                        {
+                            return new EvaluationResult { Result = result, ErrorMessage = "The operator was incorrect." };
+                        }
+                    }
+                    else if (inpArray.Length == 2)
+                    {
+
+                        if (_VALID_OPERATORS.Contains(inpArray[0]))
+                        {
+                            bool success = Decimal.TryParse(inpArray[1], out input1);
+                            if (success)
+                            {
+
+                                var op = inpArray[0];
                                 switch (op)
                                 {
                                     case "+":
-                                        result = input1 + input2;
+                                        result += input1;
                                         break;
                                     case "-":
-                                        result = input1 - input2;
+                                        result -= input1;
                                         break;
                                     case "*":
-                                        result = input1 * input2;
+                                        result *= input1;
                                         break;
                                     case "/":
-                                        result = input1 / input2;
+                                        result /= input1;
                                         break;
                                     default:
                                         throw new NotImplementedException($"The following operator was used, but incorrect{op}");
                                 }
+                                HistoryList.Add(FormatOneInput(result, input));
 
                             }
                             else
@@ -56,65 +117,94 @@ namespace CalculatorCore
                                 return new EvaluationResult { Result = result, ErrorMessage = "The second entry was incorrect." };
 
                             }
-
                         }
                         else
                         {
-                            return new EvaluationResult { Result = result, ErrorMessage = "The first entry was incorrect." };
-
+                            return new EvaluationResult { Result = result, ErrorMessage = "The operator was incorrect." };
                         }
                     }
-                    else
-                    {
-                        return new EvaluationResult { Result = result, ErrorMessage = "The operator was incorrect." };
-                    }
                 }
-                else if (inpArray.Length == 2)
+                //else if (input.Contains("history", StringComparison.OrdinalIgnoreCase))
+                //{
+                //    //Call method that returns a list; possibly do this at a different level
+
+
+                //    if (HistoryList.Count > 0)
+                //    {
+                //        GetHistList(input);
+                //        return new EvaluationResult { Result = result, History = HistoryList };
+
+                //    }
+                //    else
+                //    {
+                //        return new EvaluationResult { Result = result, ErrorMessage = "There's no history to report." };
+
+                //    }
+                //}
+
+
+                else
                 {
+                    return new EvaluationResult { Result = result, ErrorMessage = "There are an incorrect number of entries." };
 
-                    if (_VALID_OPERATORS.Contains(inpArray[0]))
-                    {
-                        bool success = Decimal.TryParse(inpArray[1], out input1);
-                        if (success)
-                        {
-
-                            var op = inpArray[0];
-                            switch (op)
-                            {
-                                case "+":
-                                    result += input1;
-                                    break;
-                                case "-":
-                                    result -= input1;
-                                    break;
-                                case "*":
-                                    result *= input1;
-                                    break;
-                                case "/":
-                                    result /= input1;
-                                    break;
-                                default:
-                                    throw new NotImplementedException($"The following operator was used, but incorrect{op}");
-                            }
-                        } 
-                        else
-                        {
-                            return new EvaluationResult { Result = result, ErrorMessage = "The second entry was incorrect." };
-
-                        }  
-                    }
-                    else
-                    {
-                        return new EvaluationResult { Result = result, ErrorMessage = "The operator was incorrect." };
-                    } 
                 }
             }
-            else
+            else// if (input.Contains("history", StringComparison.OrdinalIgnoreCase))
             {
-                return new EvaluationResult { Result = result, ErrorMessage = "There are an incorrect number of entries." };
+                //Call method that returns a list; possibly do this at a different level
 
+
+                if (HistoryList.Count > 0)
+                {
+                    GetHistList(input);
+                    return new EvaluationResult { History = HistoryList };
+
+                }
+                else
+                {
+                    return new EvaluationResult { Result = result, ErrorMessage = "There's no history to report." };
+
+                }
             }
-             return new EvaluationResult { Result = result };
+
+            return new EvaluationResult { Result = result,History=HistoryList };
+            }
+
+        public List<string> GetHistList(string input)
+        {
+            var getOpArray = input.Split(" ");
+            string oper;
+            if (getOpArray.Length > 1)
+            {
+                oper = getOpArray[1];
+                HistoryList = HistoryList.FindAll(x => x.Contains(" " + oper + " "));
+            }
+
+            return HistoryList;
         }
+
+        public  string FormatTwoInputs(decimal result, string input)
+        {
+            var histStringOG = $"{input} ";
+            var oGLength = histStringOG.Length;
+            var length = oGLength - 20;
+            var inpLength = result.ToString().Length;
+            length = 20 - oGLength + inpLength;
+            var formatedResult = String.Format("{0," + length + "}", "= " + result);
+            return $"{input} {formatedResult}";
+        }
+
+        public  string FormatOneInput(decimal result, string input)
+        {
+            var histStringOG = $"_{result}_ {input} ";//ED - use the string formating here and concatenate them.
+            var oGLength = histStringOG.Length;
+            var length = oGLength - 20;
+            var inpLength = result.ToString().Length;
+            length = 20 - oGLength + inpLength;
+            var formatedResult = String.Format("{0," + length + "}", "= " + result);
+            return $"_{result}_ {input} {formatedResult}";
+        }
+
+
     }
-}
+    } 

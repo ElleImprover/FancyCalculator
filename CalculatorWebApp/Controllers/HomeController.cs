@@ -22,15 +22,19 @@ namespace CalculatorWebApp.Controllers
             _history = new();
         }
         [HttpPost]
-        public IActionResult Index(string input="",string history ="")
+        public IActionResult Index(string input="")
         {
             //List<string> histList = new();
             //if (!String.IsNullOrWhiteSpace(history))
             //{ input = history; 
             //}
-            ViewBag.Result = RunCalcForWeb(input);
-            //var historyList = HttpContext.Session.Get<List<String>>("History");
-            if (_history.Count > 0){
+            ViewBag.Result = "";
+            var result = RunCalcForWeb(input);
+            if (!input.Contains("history", StringComparison.CurrentCultureIgnoreCase)||!String.IsNullOrEmpty(result))
+            {
+                ViewBag.Result = result;
+            }
+            else  if (_history.Count > 0){
                 ViewBag.History = _history;
             }
 

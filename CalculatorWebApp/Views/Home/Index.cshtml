@@ -18,10 +18,10 @@
         <button type="submit">
             <br />
             Submit
-        </button>  
+        </button>
         @*<button type="submit" action="" value="history">
-            View History
-        </button>*@
+                View History
+            </button>*@
     </form>
 </div>
 <section class="text-center">
@@ -32,19 +32,33 @@
             @ViewBag.Result
         </label><br />
     }
-     @else if(ViewBag.History != null && String.IsNullOrEmpty(ViewBag.Result))
-
+    else if (ViewBag.History != null) //&& String.IsNullOrEmpty(ViewBag.Result))
     {
-    @if (ViewBag.History.Count > 0)
-    {
-        <h6>History:</h6>
-        <ul style="list-style-type:none; ">
-            @foreach (var x in ViewBag.History)
-            {
-                <li>@x</li>
-            }
-        </ul>
-    }
+        @if (ViewBag.History.Count > 0)
+        {
+            <br /><br />
+            <h6>History:</h6><br />
+            <table border="1">
+                <tr>
+                    <td>Expression</td>
+                    <td>Result</td>
+                </tr>
+                @foreach (var x in ViewBag.History)
+                {
+                <tr>
+                    @foreach (var y in x.Split("="))
+                    {
+                        <td>@y</td>}
+                </tr>
+}
+            </table>
+            @*<ul style="list-style-type:none; ">
+                    @foreach (var x in ViewBag.History)
+                    {
+                        <li>@x</li>
+                    }
+                </ul>*@
+        }
     }
 
 </section>

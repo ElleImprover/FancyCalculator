@@ -90,10 +90,10 @@ namespace CalculatorCore
                             bool success = Decimal.TryParse(inpArray[1], out input1);
                             if (success)
                             {
-
+                                var ogResult = result;
                                 var op = inpArray[0];
-                                switch (op)
-                                {
+                                switch (op) {
+
                                     case "+":
                                         result += input1;
                                         break;
@@ -109,7 +109,7 @@ namespace CalculatorCore
                                     default:
                                         throw new NotImplementedException($"The following operator was used, but incorrect{op}");
                                 }
-                                HistoryList.Add(FormatOneInput(result, input));
+                                HistoryList.Add(FormatOneInput(ogResult, input,result));
 
                             }
                             else
@@ -156,13 +156,20 @@ namespace CalculatorCore
 
                 if (HistoryList.Count > 0)
                 {
-                    GetHistList(input);
-                    return new EvaluationResult { History = HistoryList };
+                    GetHistList(input);//Filters current list
+                    if (HistoryList.Count == 0) {
+                        return new EvaluationResult { ErrorMessage = "There's no history to report." };
+
+                    }
+                    else
+                    {
+                        return new EvaluationResult { History = HistoryList };
+                    }
 
                 }
                 else
                 {
-                    return new EvaluationResult { Result = result, ErrorMessage = "There's no history to report." };
+                    return new EvaluationResult { ErrorMessage = "There's no history to report." };
 
                 }
             }
@@ -194,15 +201,15 @@ namespace CalculatorCore
             return $"{input} {formatedResult}";
         }
 
-        public  string FormatOneInput(decimal result, string input)
+        public  string FormatOneInput(decimal oGresult, string input, decimal result)
         {
-            var histStringOG = $"_{result}_ {input} ";//ED - use the string formating here and concatenate them.
+            var histStringOG = $"_{oGresult}_ {input} ";//ED - use the string formating here and concatenate them.
             var oGLength = histStringOG.Length;
             var length = oGLength - 20;
             var inpLength = result.ToString().Length;
             length = 20 - oGLength + inpLength;
             var formatedResult = String.Format("{0," + length + "}", "= " + result);
-            return $"_{result}_ {input} {formatedResult}";
+            return $"_{oGresult}_ {input} {formatedResult}";
         }
 
 

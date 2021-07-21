@@ -30,9 +30,14 @@ namespace CalculatorWebApp.Controllers
             //}
             ViewBag.Result = "";
             var result = RunCalcForWeb(input);
-            if (!input.Contains("history", StringComparison.CurrentCultureIgnoreCase)||!String.IsNullOrEmpty(result))
+            if (!input.Contains("history", StringComparison.CurrentCultureIgnoreCase))//||!String.IsNullOrEmpty(result))
             {
                 ViewBag.Result = result;
+            }
+            else if(input.Contains("history", StringComparison.CurrentCultureIgnoreCase)&& (!result.Equals("0")))//View error messages for history
+            {
+                ViewBag.Result = result;
+
             }
             else  if (_history.Count > 0){
                 ViewBag.History = _history;

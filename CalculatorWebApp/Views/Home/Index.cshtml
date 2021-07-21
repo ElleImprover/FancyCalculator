@@ -38,7 +38,7 @@
         {
             <br /><br />
             <h6>History:</h6><br />
-            <table border="1">
+            <table border="1" >
                 <tr>
                     <td>Expression</td>
                     <td>Result</td>
@@ -46,18 +46,13 @@
                 @foreach (var x in ViewBag.History)
                 {
                 <tr>
-                    @foreach (var y in x.Split("="))
+                    @foreach (var y in x.Split("="))//ED-Need to look into and redo
                     {
                         <td>@y</td>}
                 </tr>
 }
             </table>
-            @*<ul style="list-style-type:none; ">
-                    @foreach (var x in ViewBag.History)
-                    {
-                        <li>@x</li>
-                    }
-                </ul>*@
+
         }
     }
 

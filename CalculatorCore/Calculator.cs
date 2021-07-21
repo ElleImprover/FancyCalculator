@@ -107,7 +107,7 @@ namespace CalculatorCore
                                         result /= input1;
                                         break;
                                     default:
-                                        throw new NotImplementedException($"The following operator was used, but incorrect{op}");
+                                        return new EvaluationResult { Result = result, ErrorMessage = $"The following operator was used, but incorrect{op}"};
                                 }
                                 HistoryList.Add(FormatOneInput(ogResult, input,result));
 
@@ -124,32 +124,13 @@ namespace CalculatorCore
                         }
                     }
                 }
-                //else if (input.Contains("history", StringComparison.OrdinalIgnoreCase))
-                //{
-                //    //Call method that returns a list; possibly do this at a different level
-
-
-                //    if (HistoryList.Count > 0)
-                //    {
-                //        GetHistList(input);
-                //        return new EvaluationResult { Result = result, History = HistoryList };
-
-                //    }
-                //    else
-                //    {
-                //        return new EvaluationResult { Result = result, ErrorMessage = "There's no history to report." };
-
-                //    }
-                //}
-
-
                 else
                 {
                     return new EvaluationResult { Result = result, ErrorMessage = "There are an incorrect number of entries." };
 
                 }
             }
-            else// if (input.Contains("history", StringComparison.OrdinalIgnoreCase))
+            else
             {
                 //Call method that returns a list; possibly do this at a different level
 

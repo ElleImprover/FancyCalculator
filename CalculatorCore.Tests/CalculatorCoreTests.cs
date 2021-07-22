@@ -72,6 +72,21 @@ namespace CalculatorCore.Tests
             EvaluationResult result = calc.Evaluate("+ 9");
             Assert.AreEqual(9, result.Result);
         }
+        [TestMethod]
+        public void ValidateRegularHistoryWorks()
+        {
+            EvaluationResult result = calc.Evaluate("1 + 9");
+            Assert.IsTrue(result.History.Contains("1 + 9 = 10"));
+        }
+
+        //[TestMethod]
+        //public void ValidateSingularHistoryWorks()
+        //{
+        //    EvaluationResult result = calc.Evaluate("+ 9");
+        //    Assert.IsTrue(result.History.Contains("+ 9 = 10"));
+        //}
+        [TestMethod]
+    
         public void ValidateConsoleExit()
         {
             CalcConsole calc = new();

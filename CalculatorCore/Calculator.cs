@@ -62,7 +62,7 @@ namespace CalculatorCore
                                         default:
                                             throw new NotImplementedException($"The following operator was used, but incorrect{op}");
                                     }
-                                    HistoryList.Add(FormatTwoInputs(result, input));
+                                    HistoryList.Add(FormatTwoInputsWeb(result, input));
                                 }
                                 else
                                 {
@@ -109,7 +109,7 @@ namespace CalculatorCore
                                     default:
                                         return new EvaluationResult { Result = result, ErrorMessage = $"The following operator was used, but incorrect{op}"};
                                 }
-                                HistoryList.Add(FormatOneInput(ogResult, input,result));
+                                HistoryList.Add(FormatOneInputWeb(ogResult, input,result));
 
                             }
                             else
@@ -181,16 +181,14 @@ namespace CalculatorCore
             var formatedResult = String.Format("{0," + length + "}", "= " + result);
             return $"{input} {formatedResult}";
         }
-
-        public  string FormatOneInput(decimal oGresult, string input, decimal result)
+        public string FormatTwoInputsWeb(decimal result, string input)
         {
-            var histStringOG = $"_{oGresult}_ {input} ";//ED - use the string formating here and concatenate them.
-            var oGLength = histStringOG.Length;
-            var length = oGLength - 20;
-            var inpLength = result.ToString().Length;
-            length = 20 - oGLength + inpLength;
-            var formatedResult = String.Format("{0," + length + "}", "= " + result);
-            return $"_{oGresult}_ {input} {formatedResult}";
+            return $"{input} = {result}";
+        }
+
+        public  string FormatOneInputWeb(decimal oGresult, string input, decimal result)
+        {
+            return $"_{oGresult}_ {input} = {result}";
         }
 
 
